@@ -94,7 +94,7 @@ const fetchTodo = () => {
                 
             </section>
         </div>
-        <span class="text-blue-900 flex gap-2 justify-center items-center">Date Added: ${new Date(todo.date).toLocaleString()}</span>
+        <span class="text-slate-400 flex gap-2 justify-center items-center">Date Added: ${new Date(todo.date).toLocaleString()}</span>
         `;
     });
 
@@ -179,9 +179,9 @@ const updateTodo = () =>{
     const todoInput = document.querySelector('#todoInput');
 
     if(!todoInput.value){
-        errorMessageSpan.innerHTML = "Kindly Enter a todo title";
+        errorMessageSpan.innerHTML = "Kindly Enter a task title";
         errorMessageSpan.classList.remove("hidden");
-        errorMessageSpan.classList.add("text-base", "text-red-400");
+        errorMessageSpan.classList.add("text-base", "text-red-500", "font-bold", "pt-3");
 
         setTimeout(() =>{
             errorMessageSpan.classList.add("hidden")
