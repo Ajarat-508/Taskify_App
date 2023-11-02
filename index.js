@@ -59,7 +59,7 @@ const fetchTodo = () => {
     const todoListContainer = document.querySelector('#todo-list-container');
     
     if (emptyTodo) {
-        todoListContainer.innerHTML = `<p class="text-center text slate-400">Your todos will appear here</p>`;
+        todoListContainer.innerHTML = `<p class="text-center text-slate-200">Your tasks will appear here</p>`;
         return;
     }
 
