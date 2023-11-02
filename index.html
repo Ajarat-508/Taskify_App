@@ -8,16 +8,24 @@
     <!-- Tailwind Css Link  -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <title>TODOIST App</title>
+    <!--  -->
+    <title>Taskify App</title>
 </head>
 <body class="bg-slate-200">
-    <header class="px-5 py-4 max-w-lg mx-auto">
-        <h1 class="text-4xl font-medium text-slate-900">TODOIST</h1></header>
+    <div class="container mt-5 mx-auto bg-emerald-300 w-[30%]">
+    <header class="px-5 py-4 mx-auto flex justify-center gap-3">
+        <img src="./todo.png" alt=""
+        class="w-[50px] h-[50px]">
+        <h1 class="text-4xl text-center text-slate-900 mt-5">Taskify</h1>
+
+    </header>
+
+       
     <main class="px-5 mt-5 max-w-lg mx-auto">
         <form class="flex flex-col items-center sm:flex-row gap-3" action="">
             <input
             id ="todoInput"
-            class="border border-slate-300 rounded-lg px-5 py-3 hover:bg-gray-100 outline-none w-full"
+            class="border border-slate-300 shadow rounded-lg px-5 py-3 hover:bg-gray-100 outline-none w-full"
             type="text" name="" id="" placeholder="What needs to be done?">
 
             <button 
@@ -46,7 +54,7 @@
         </section>
     </main>
     
-   
+</div>
     <script src="./index.js"></script>
 </body>
 </html>
