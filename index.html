@@ -12,12 +12,16 @@
     <title>Taskify App</title>
 </head>
 <body class="bg-slate-200">
-    <div class="container mt-10 mx-auto bg-blue-900 w-[30%] px-3" >
-    <header class="px-5 py-4 mx-auto flex justify-center items-center gap-3">
+    <section class="container mt-10 mx-auto bg-blue-900 w-[80%] px-3
+     sm:w-[30%]" >
+
+    <header class="px-5 py-4 mx-auto flex justify-center 
+    items-center gap-3">
         <img src="./tasklogo.png" alt=""
         class="w-[50px] h-[50px]">
         
-        <h1 class="text-4xl text-center text-slate-200 mt-5 font-medium">Taskify</h1>
+        <h1 class="text-4xl text-center text-slate-200 mt-5 
+        font-medium">Taskify</h1>
     </header>
 
        
@@ -25,8 +29,10 @@
         <form class="flex flex-col items-center sm:flex-row gap-3" action="">
             <input
             id ="todoInput"
-            class="border border-slate-300 shadow rounded-lg px-5 py-3 hover:bg-gray-100 outline-none w-full"
-            type="text" name="" id="" placeholder="What needs to be done?">
+            class="border border-slate-300 shadow 
+            rounded-lg px-5 py-3 hover:bg-gray-100 
+            focus:outline-slate-400 w-full"
+            type="text" name=""  placeholder="What needs to be done?">
 
             <button 
             class="bg-indigo-950 rounded-lg 
@@ -49,12 +55,14 @@
         </button>
         </form>
 
-        <span class="hidden" id="error-message"></span>
+        <span class="hidden block" id="error-message"></span>
         <section class="mt-5" id="todo-list-container">
         </section>
     </main>
     
-</div>
+    </section>
+
+    <script src="./utility.js"></script>
     <script src="./index.js"></script>
 </body>
 </html>
