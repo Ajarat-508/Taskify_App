@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Sweet alert Link -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
     <!-- Tailwind Css Link  -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!--  -->
+    <!-- Sweet alert Link -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <title>Taskify App</title>
 </head>
 <body class="bg-slate-200">
@@ -35,24 +36,34 @@
             type="text" name=""  placeholder="What needs to be done?">
 
             <button 
-            class="bg-indigo-950 rounded-lg 
-            hover:bg-indigo-700 text-white text-sm font-bold px-2.5 py-2 w-[120px]"
-            onclick="createTodo()"
-            type="button" 
-            id="add_todo_btn">
+                class="bg-indigo-950 rounded-lg 
+                hover:bg-indigo-700 text-white text-sm font-bold px-2.5 py-2 w-[120px]"
+                onclick="createTodo(event)"
+                type="button" 
+                id="add_todo_btn">
             
             Add Task
-        </button>
+            </button>
 
             <button 
-            class="bg-amber-500 rounded-lg hidden
-            hover:bg-amber-300 text-white text-sm font-bold px-2.5 py-2 w-[120px]"
-            onclick="updateTodo()"
-            type="button"
-            id="update_todo_btn">
-            
+                class="bg-amber-500 rounded-lg hidden
+                hover:bg-amber-300 text-white text-sm font-bold px-2.5 py-2 w-[120px]"
+                onclick="updateTodo(event)"
+                type="button"
+                id="update_todo_btn">
+                
             Update
-        </button>
+            </button>
+            <button 
+                class="bg-amber-500 rounded-lg hidden
+                hover:bg-amber-300 text-white text-sm font-bold 
+                px-2.5 py-2 w-[120px]"
+                
+                type="button"
+                id="cancel_todo_btn">
+                
+            Cancel
+            </button>
         </form>
 
         <span class="hidden block" id="error-message"></span>
@@ -60,9 +71,9 @@
         </section>
     </main>
     
-    </section>
+</section>
 
     <script src="./utility.js"></script>
-    <script src="./index.js"></script>
+    <script src="./index2.js"></script>
 </body>
 </html>

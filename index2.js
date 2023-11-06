@@ -3,27 +3,20 @@
 const dB_Name = 'todo_Db';
 
 // GLobal Variables
-const addTodoInput = document.querySelector("#todo_input");
+const todoInput = document.querySelector('#todoInput');
 const updateTodoBtn = document.querySelector("#update_todo_btn");
 const addTodoBtn = document.querySelector("#add_todo_btn");
 
 // Create Todo
-const createTodo = function (e) {
-    e.preventdefault();
-    const todoInput = document.querySelector('#todoInput');
-    const errorMessageSpan = document.querySelector("#error-message")
-    
+const createTodo =  (e) => {
+    e.preventDefault();
+    try {    
     if(!todoInput.value){
-        errorMessageSpan.innerHTML = "Kindly Enter a todo title";
-        errorMessageSpan.classList.remove("hidden");
-        errorMessageSpan.classList.add("text-base", "text-red-400");
-
-        setTimeout(() =>{
-            errorMessageSpan.classList.add("hidden")
-        }, 4000);
-
+      
+        showMessage("Kindly Enter a task title");
         return;
     } 
+    
 
     const newTodo = {
         id: uuid(),
@@ -31,24 +24,26 @@ const createTodo = function (e) {
         date: Date.now(),
     };
 
-    // check id local storage is empty
-    const todo_Db = JSON.parse(localStorage.getItem('todo_Db')) || [];
-   
-    // Add new todo to Db array
+    // check if local storage is empty
+    
+    const todo_Db = getDb(dB_Name)
+
     const newTodo_DB = [...todo_Db, newTodo];
   
     // add new todo to local storage
-    localStorage.setItem(dB_Name, JSON.stringify(newTodo_DB));
-    // To display it on the UI whe User enters a to Item
+    setDb(dB_Name, newTodo_DB);
     fetchTodo();
     // setting the input field to empty after clicking the add todo button
-    todoInput.value = " ";
+    resetFormInput();
 }
-
+catch (error) {
+    showMessage(error.message);  
+}
+};
 
 // READ TODO FUNCTION
 const fetchTodo = () => {
-    const todo_Db = JSON.parse(localStorage.getItem(dB_Name)) || [];
+    const todo_Db = getDb(dB_Name);
     const emptyTodo = todo_Db.length === 0;
     const todoListContainer = document.querySelector('#todo-list-container');
     
@@ -58,13 +53,10 @@ const fetchTodo = () => {
     }
 
     // Sort the todos by date in descending order
-    todo_Db.sort((a, b) => b.date - a.date);
-
-    const todos = todo_Db.map((todo) => {
+    const todos = sortTodosByDate(todo_Db).map((todo) => {
         return `
         <div class="group flex justify-between items-center py-3 px-2.5 bg-slate-100 rounded-lg hover:bg-slate-100">
             <a href="">${todo.title}</a>
-            
             
             <section class="flex gap-4 hidden group-hover:block">
                 
@@ -83,8 +75,6 @@ const fetchTodo = () => {
                         <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                     </svg>  
                 </button>
-
-                
                 
             </section>
         </div>
@@ -92,50 +82,60 @@ const fetchTodo = () => {
         `;
     });
 
-    // Render the sorted todos on the UI
     todoListContainer.innerHTML = todos.join('');
 };
 
-// Call fetchTodo to populate the UI with sorted todos
 fetchTodo();
 
 // UPDATE TODO FUNCTION
 function handleEditMode(id){
-const todo_Db = JSON.parse(localStorage.getItem(dB_Name)) || [];
+const todo_Db = getDb(dB_Name);
 const todo_to_update = todo_Db.find((todo) => todo.id === id);
 if(!todo_to_update){
     return;
 }
 
-const todoInput = document.querySelector('#todoInput');
+
 todoInput.value = todo_to_update.title 
 
-const updateTodoBtn = document.querySelector("#update_todo_btn")
-updateTodoBtn.classList.remove("hidden") // show updateTodoBtn
-updateTodoBtn.setAttribute("todo_id_to_update", id)
+const updateTodoBtn = document.querySelector("#update_todo_btn");
+updateTodoBtn.classList.remove("hidden"); // Show the Update button
 
-const addBtn = document.querySelector("#add_todo_btn")
-addBtn.classList.add("hidden")  // show addBtn
+updateTodoBtn.setAttribute("todo_id_to_update", id);
+
+const addBtn = document.querySelector("#add_todo_btn");
+addBtn.classList.add("hidden"); // Hide the Add button
+
+const cancelBtn = document.querySelector("#cancel_todo_btn");
+cancelBtn.classList.remove("hidden"); // Show the Cancel button
+
+// Add an event listener to hide the Cancel button and show the Add button when Update or Cancel is clicked
+updateTodoBtn.addEventListener("click", function() {
+  cancelBtn.classList.add("hidden"); // Hide the Cancel button
+  addBtn.classList.remove("hidden"); // Show the Add button
+});
+
+cancelBtn.addEventListener("click", () => {
+    resetFormInput();
+  cancelBtn.classList.add("hidden"); // Hide the Cancel button
+  addBtn.classList.remove("hidden"); // Show the Add button
+  updateTodoBtn.classList.add("hidden");
+});
+
+
+
 };
 
-const updateTodo = () =>{
-    const todoInput = document.querySelector('#todoInput');
-
+const updateTodo = (e) =>{
+    e.preventDefault();
     if(!todoInput.value){
-        errorMessageSpan.innerHTML = "Kindly Enter a task title";
-        errorMessageSpan.classList.remove("hidden");
-        errorMessageSpan.classList.add("text-base", "text-red-500", "font-bold", "pt-3");
-
-        setTimeout(() =>{
-            errorMessageSpan.classList.add("hidden")
-        }, 4000);
-
+      showMessage("Kindly enter a task title to update")
         return;
     } 
 
-    const updateTodoBtn = document.querySelector("#update_todo_btn")
+    
     const todo_id_to_update= updateTodoBtn.getAttribute("todo_id_to_update")
-    const todo_Db = JSON.parse(localStorage.getItem(dB_Name)) || [];
+    const todo_Db = getDb(dB_Name);
     const updated_todo_Db = todo_Db.map((todo) => {
         if(todo.id === todo_id_to_update){
     return{...todo, title: todoInput.value}
@@ -144,18 +144,22 @@ const updateTodo = () =>{
         }
     });
    
-    console.log(updated_todo_Db) 
+   
 
-    localStorage.setItem(dB_Name, JSON.stringify(updated_todo_Db))
+    // localStorage.setItem(dB_Name, JSON.stringify(updated_todo_Db))
+    setDb(dB_Name, updated_todo_Db);
     fetchTodo();
-    todoInput.value = " ";
+    resetFormInput();
 
     
 updateTodoBtn.classList.add("hidden") // hide updateTodoBtn
-
+const cancelBtn = document.querySelector("#cancel_todo_btn");
+cancelBtn.classList.remove("hidden"); // show cancelBtn
 
 const addBtn = document.querySelector("#add_todo_btn")
 addBtn.classList.remove("hidden")  // show addBtn
+
+
 };
 // DELETE TODO FUNCTION
 const deleteTodo = (id) => {
@@ -169,23 +173,15 @@ const deleteTodo = (id) => {
       }).then((res) => {
 
         if(res.isConfirmed){
-
-            
-        // get  todo from local storage
-        const todo_Db = JSON.parse(localStorage.getItem(dB_Name));
-       
-        // filter out todos that doesn't match the id
+        const todo_Db = getDb(dB_Name);
         const new_todo_Db = todo_Db.filter((todo) => todo.id !== id)
         
-    
-        // set todos without the todo that matches the ID to the ls
-        localStorage.setItem(dB_Name, JSON.stringify(new_todo_Db));
+        setDb(dB_Name, new_todo_Db);
         fetchTodo()
         } else{
             return;
         }
         
-      })
+      });
     
-}
-fetchTodo();
+};
