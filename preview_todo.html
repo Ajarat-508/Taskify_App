@@ -12,15 +12,15 @@
     <title> Tasks Preview || Page</title>
 </head>
 <body>
-    <section class="container mt-10 mx-auto bg-blue-900 w-[80%] px-3
+    <section class="container mt-10 mx-auto bg-lime-700 rounded-lg w-[80%] px-3
      sm:w-[30%]" >
 
     <header class="px-5 py-4 mx-auto flex justify-center 
     items-center gap-3">
-        <img src="./tasklogo.png" alt="Taskify Logo"
-        class="w-[50px] h-[50px]">
+    <img src="./taskifyLogo.png" alt="Taskify Logo"
+    class="w-[40px] h-[40px] rounded-lg">
         
-        <h1 class="text-4xl text-center text-slate-200 mt-5 
+        <h1 class="text-3xl text-center text-slate-200 mt-5 
         font-medium">Taskify</h1>
     </header>
     
@@ -94,9 +94,9 @@
         </a>
     </section>
 
-    <section class="flex items-center w-[100%]"  id="preview_form">
+    <section class="flex items-center w-[100%] hidden"  id="preview_form">
         <form class="flex flex-col items-center gap-2 
-        rounded-lg w-[80%] mx-auto hidden">
+        rounded-lg w-[80%] mx-auto ">
         <button onclick="previewEditForm(event)">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -127,7 +127,7 @@
               class="border p-2 rounded-md w-full h-full"
               placeholder="Write description here"
             ></textarea>
-            <button class="p-1 bg-amber-500 rounded-lg mb-4" onclick="handlePreviewEdit(event)">
+            <button class="p-1 bg-amber-600 rounded-lg mb-4 text-white" onclick="handlePreviewEdit(event)">
               Update
             </button>
           </form>

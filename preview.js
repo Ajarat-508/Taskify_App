@@ -1,43 +1,42 @@
-// "use strict";
+"use strict";
 
 const dB_Name = "todo_db";
-
 const handlePreviewEdit = function (e) {
   e.preventDefault();
   document.querySelector("#preview_form").classList.remove("hidden");
   const editTitle = document.querySelector("#title_edit").value;
   const todoDescription = document.querySelector("#todo_description").value;
 
-  const todo_db = getDb("todo_db")
-  const currentPreviewTodoId = getDb  ("current_Preview_Todo");
-  const todoID = todo_db.findIndex((todo) => todo.id === currentPreviewTodoId);
+  const todo_db = getDb("todo_Db");
+  const currentPreviewtaskID = getDb("current_Preview_Todo");
+  const taskID = todo_db.findIndex((todo) => todo.id === currentPreviewtaskID);
 
-  if (todoID !== -1) {
+  if (taskID !== -1) {
     // Update the currentTodo with the new title and added description
     if (editTitle === "" || todoDescription === "") {
       return;
     } else {
       const updatedCurrentTodo = {
-        ...todo_db[todoID],
+        ...todo_db[taskID],
         title: editTitle,
         description: todoDescription,
       };
       // Update the todo_db in local storage with the modified currentTodo
-      todo_db[todoID] = updatedCurrentTodo;
-      setDb("todo_db", todo_db);
+      todo_db[taskID] = updatedCurrentTodo;
+      setDb("todo_Db", todo_db);
     }
-    // Optionally, you can re-render or perform any other necessary actions
+   
     document.querySelector("#preview_form").classList.add("hidden");
-    renderPreviewTodoId();
+    renderPreviewtaskID();
   } else {
     console.error("Task not found in the database.");
   }
 };
 
-const renderPreviewTodoId = function () {
+const renderPreviewtaskID = function () {
   const todo_db = getDb("todo_Db");
-  const currentPreviewTodoId = getDb  ("current_Preview_Todo");
-  const currentTodo = todo_db.find((todo) => todo.id === currentPreviewTodoId);
+  const currentPreviewtaskID = getDb("current_Preview_Todo");
+  const currentTodo = todo_db.find((todo) => todo.id === currentPreviewtaskID);
 
   const { title, id, date, description } = currentTodo;
   const todo_Preview_Container = document.querySelector("#description");
@@ -73,7 +72,9 @@ const renderPreviewTodoId = function () {
 
           <section class=""
           >
-                <p class="text-sm text-slate-300" > ${description || "Your description will appear here"}</p>
+                <p class="text-sm text-slate-300" > ${
+                  description || "Your description will appear here"
+                }</p>
                 <section class="mt-4">
 
                     <span class="text-slate-200 text-sm">
@@ -81,7 +82,7 @@ const renderPreviewTodoId = function () {
                     </span>
                     <span class="mx-2 text-white">&middot;</span>
                     <span 
-                    class=" text-slate-100 bg-amber-500 
+                    class=" text-slate-100 bg-amber-600 
                     text-sm px-2 py-1 rounded-full"
                     id="task">
                         Pending
@@ -91,29 +92,24 @@ const renderPreviewTodoId = function () {
         </section>`);
 };
 
-renderPreviewTodoId();
+renderPreviewtaskID();
 const previewEditForm = (e) => {
-    
-  
-
-const previewEditForm = (e) =>{
   e.preventDefault();
-  console.log("Button clicked!");
+ 
   document.querySelector("#preview_form").classList.toggle("hidden");
 };
-}
 
 // Delete todo
 const deleteTodo = function (id) {
   Swal.fire({
-    title: 'Delete Todo',
-    text: 'Do you want to delete this todo',
-    icon: 'warning',
+    title: "Delete Todo",
+    text: "Do you want to delete this todo",
+    icon: "warning",
     confirmButtonText: "Yes!",
     showCancelButton: true,
   }).then((res) => {
     if (res.isConfirmed) {
-      const todo_db = getDb  (dB_Name);
+      const todo_db = getDb(dB_Name);
       const new_todo_db = todo_db.filter((todo) => todo.id !== id);
 
       setDb(dB_Name, new_todo_db);
@@ -130,12 +126,12 @@ const pending = function () {
 
   if (checkTask.checked === true) {
     taskStatus.textContent = "Completed";
-    taskStatus.classList.remove("bg-yellow-300");
-    taskStatus.classList.add("bg-green-300");
+    taskStatus.classList.remove("bg-amber-600");
+    taskStatus.classList.add("bg-green-400");
   } else {
     taskStatus.textContent = "Pending";
     taskStatus.classList.remove("bg-green-400");
-    taskStatus.classList.add("bg-amber-400");
+    taskStatus.classList.add("bg-amber-600");
   }
 };
 pending();

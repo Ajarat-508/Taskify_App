@@ -46,6 +46,28 @@ const showMessage = (title) => {
         return todo_Db.sort((a, b) => b.date - a.date);
     }
 
+    // const hideCancelBtn = () =>{
+    //     cancelBtn.classList.add("hidden")
+    // }
+    // const showCancelBtn = () =>{
+    //     cancelBtn.classList.remove("hidden")
+    // }
+
+    // const hideUpdateBtn = () =>{
+    //     updateTodoBtn.classList.add("hidden")
+    // }
+
+    // const showUpdateBtn = () =>{
+    //     updateTodoBtn.classList.remove("hidden")
+    // }
+
+    // const hideAddBtn = () =>{
+    //     addBtn.classList.add("hidden")
+    // }
+
+    // const showAddBtn = () =>{
+    //     addBtn.classList.remove("hidden")
+    // }
    
     function getDate(timestamp) {
         const date = new Date(timestamp);
