@@ -39,15 +39,15 @@ const renderPreviewtaskID = function () {
   const currentTodo = todo_db.find((todo) => todo.id === currentPreviewtaskID);
 
   const { title, id, date, description } = currentTodo;
-  const todo_Preview_Container = document.querySelector("#description");
+  const todo_Preview_Container = document.querySelector("#preview-container");
 
   return (todo_Preview_Container.innerHTML = ` 
-  <section id="description">
-            <section class="flex justify-between items-center">
-            <h3 class="text-xl text-slate-200 font-bold" ><input class="p-3" type="checkbox" name="done" 
+  <section id="preview-container">
+            <section class=" group flex justify-between items-center gap-2">
+            <h3 class="text-xl text-slate-100 font-bold" ><input class="p-3" type="checkbox" name="done" 
                 id="complete" onchange="pending()"/>
                 ${title}</h3>
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 hidden group-hover:block">
                 <button onclick="previewEditForm(event)">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
                         stroke-width="1.5" stroke="currentColor"
@@ -100,10 +100,10 @@ const previewEditForm = (e) => {
 };
 
 // Delete todo
-const deleteTodo = function (id) {
+const deleteTodo = (id) => {
   Swal.fire({
-    title: "Delete Todo",
-    text: "Do you want to delete this todo",
+    title: "Delete Task",
+    text: "Do you want to delete this task",
     icon: "warning",
     confirmButtonText: "Yes!",
     showCancelButton: true,
@@ -127,10 +127,10 @@ const pending = function () {
   if (checkTask.checked === true) {
     taskStatus.textContent = "Completed";
     taskStatus.classList.remove("bg-amber-600");
-    taskStatus.classList.add("bg-green-400");
+    taskStatus.classList.add("bg-green-700");
   } else {
     taskStatus.textContent = "Pending";
-    taskStatus.classList.remove("bg-green-400");
+    taskStatus.classList.remove("bg-green-700");
     taskStatus.classList.add("bg-amber-600");
   }
 };

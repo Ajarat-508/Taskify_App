@@ -32,12 +32,12 @@ const showMessage = (title) => {
     };
 
     const setDb = (dB_Name, new_todo_Db) =>{
-        // if (!(dB_Name)) {
-        //     throw new Error("Database not found");
-        // }
-        // if (!(new_todo_Db)) {
-        //     throw new Error("newData not found");
-        // }
+        if (!(dB_Name)) {
+            throw new Error("Database not found");
+        }
+        if (!(new_todo_Db)) {
+            throw new Error("newData not found");
+        }
  localStorage.setItem(dB_Name, JSON.stringify(new_todo_Db));
     }
 
@@ -46,38 +46,21 @@ const showMessage = (title) => {
         return todo_Db.sort((a, b) => b.date - a.date);
     }
 
-    // const hideCancelBtn = () =>{
-    //     cancelBtn.classList.add("hidden")
-    // }
-    // const showCancelBtn = () =>{
-    //     cancelBtn.classList.remove("hidden")
-    // }
-
-    // const hideUpdateBtn = () =>{
-    //     updateTodoBtn.classList.add("hidden")
-    // }
-
-    // const showUpdateBtn = () =>{
-    //     updateTodoBtn.classList.remove("hidden")
-    // }
-
-    // const hideAddBtn = () =>{
-    //     addBtn.classList.add("hidden")
-    // }
-
-    // const showAddBtn = () =>{
-    //     addBtn.classList.remove("hidden")
-    // }
-   
     function getDate(timestamp) {
+        const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
         const date = new Date(timestamp);
       
         const year = date.getFullYear();
-        const month = date.getMonth() + 1; // JavaScript months are zero-indexed
+        const month = date.getMonth() + 1; 
         const day = date.getDate();
         const hours = date.getHours();
         const minutes = date.getMinutes();
-        const seconds = date.getSeconds();
       
-        return `${year}-${month}-${day} : ${hours}:${minutes}`;
+        // Get the day of the week
+        const dayOfWeek = daysOfWeek[date.getDay()];
+      
+        return `${dayOfWeek}: ${year}-${month}-${day} : ${hours}:${minutes}`;
       }
+      
+   
+    
