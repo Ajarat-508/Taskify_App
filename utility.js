@@ -25,20 +25,20 @@ const showMessage = (title) => {
 
     // Local Storage
     const getDb = (dB_Name) =>{
-    if (!localStorage.getItem(dB_Name)) {
-        throw new Error("Database not found");
+    if (!dB_Name) {
+        throw new Error("Database not found"); 
     }
     return JSON.parse(localStorage.getItem(dB_Name)) || [];
-    }
+    };
 
     const setDb = (dB_Name, new_todo_Db) =>{
-        if (!(dB_Name)) {
-            throw new Error("Database not found");
-        }
-        if (!(new_todo_Db)) {
-            throw new Error("newData not found");
-        }
-        return localStorage.setItem(dB_Name, JSON.stringify(new_todo_Db));
+        // if (!(dB_Name)) {
+        //     throw new Error("Database not found");
+        // }
+        // if (!(new_todo_Db)) {
+        //     throw new Error("newData not found");
+        // }
+ localStorage.setItem(dB_Name, JSON.stringify(new_todo_Db));
     }
 
 
@@ -47,3 +47,15 @@ const showMessage = (title) => {
     }
 
    
+    function getDate(timestamp) {
+        const date = new Date(timestamp);
+      
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1; // JavaScript months are zero-indexed
+        const day = date.getDate();
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        const seconds = date.getSeconds();
+      
+        return `${year}-${month}-${day} : ${hours}:${minutes}`;
+      }

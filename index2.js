@@ -1,4 +1,4 @@
-"use strict"
+// "use strict"
 // Database Name
 const dB_Name = 'todo_Db';
 
@@ -44,6 +44,7 @@ catch (error) {
 // READ TODO FUNCTION
 const fetchTodo = () => {
     const todo_Db = getDb(dB_Name);
+    
     const emptyTodo = todo_Db.length === 0;
     const todoListContainer = document.querySelector('#todo-list-container');
     
@@ -56,7 +57,7 @@ const fetchTodo = () => {
     const todos = sortTodosByDate(todo_Db).map((todo) => {
         return `
         <div class="group flex justify-between items-center py-3 px-2.5 bg-slate-100 rounded-lg hover:bg-slate-100">
-            <a href="">${todo.title}</a>
+      <button onclick="handle_Preview_Todo('${todo.id}')"> ${todo.title} </button>
             
             <section class="flex gap-4 hidden group-hover:block">
                 
@@ -185,3 +186,9 @@ const deleteTodo = (id) => {
       });
     
 };
+
+const handle_Preview_Todo = function (id) {
+    setDb("current_Preview_Todo", id);
+    window.location.href = "/preview_todo.html";
+  };
+  
