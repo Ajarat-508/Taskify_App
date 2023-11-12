@@ -54,12 +54,13 @@ const fetchTodo = () => {
     }
 
     // Sort the todos by date in descending order
-    const todos = sortTodosByDate(todo_Db).map((todo) => {
+    const sortedTodos = sortTodosByDate(todo_Db);
+    const todos = sortedTodos.map((todo) => {
         return `
         <div class="group flex justify-between items-center py-3 px-2.5 bg-slate-100 rounded-lg hover:bg-slate-100">
       <button onclick="handle_Preview_Todo('${todo.id}')"> ${todo.title} </button>
             
-            <section class="flex gap-4 hidden group-hover:block">
+            <section class="flex gap-4 hidden group-hover:flex">
                 
                 <button onclick="handleEditMode('${todo.id}')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" 
@@ -165,8 +166,8 @@ addBtn.classList.remove("hidden")  // show addBtn
 // DELETE TODO FUNCTION
 const deleteTodo = (id) => {
     Swal.fire({
-        title: 'Delete Todo',
-        text: 'Do you want to delete this todo',
+        title: 'Delete Task',
+        text: 'Do you want to delete this task?',
         icon: 'warning',
         confirmButtonText: 'Yes!',
         showCancelButton: true, 
